@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Your Website</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0; /* Background color for the entire page */
+      }
+
+      nav {
+        background-color: #000; /* Black background color */
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        height: 40px; /* Adjust the height of the navbar as needed */
+      }
+
+      .logo-container {
+        margin-right: 20px; /* Add margin to the right for spacing */
+      }
+
+      .logo {
+        color: #fff; /* White text color for the logo */
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none; /* Remove default underline for clickable text */
+        cursor: pointer; /* Set cursor to pointer for better user experience */
+      }
+
+      .logo-image {
+        width: 30px;
+        height: 30px;
+      }
+
+      .login-container {
+        background-color: #fff; /* White background color */
+        color: #000; /* Black text color */
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        margin: 20px auto; /* Center the login container */
+      }
+
+      .login-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-group label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+
+      .create-account {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .create-account a {
+        color: #000; /* Black text color */
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .submit-btn {
+        background-color: #000; /* Black background color */
+        color: #fff; /* White text color */
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-container">
+        <a href="#" class="logo">
+          <img src="{% static 'images/popcorn.png' %}" alt="Logo" class="logo-image" />
+        </a>
+      </div>
+    </nav>
+
+    <div class="login-container">
+      <div class="login-title">Login to Your Account</div>
+      <form>
+        <div class="input-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="create-account">
+          Don't have an account? <a href="#">Create one</a>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
