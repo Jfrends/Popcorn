@@ -238,23 +238,60 @@
         .footer-item:hover {
             background-color: #555;
         }
+
+        .settings-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+    
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 8px;
+        }
+    
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+    
+        .dropdown-content a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+    
+        .settings-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
 <nav>
     <div class="logo-container">
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
             <img src="{% static 'images/popcorn.png' %}" alt="Logo" class="logo-image"/>
-            Popcorn
         </a>
     </div>
     <ul class="navbar-links">
-        <a class="link" href="profile.html"><li class="navbar-item"><i class="fas fa-user"></i> Profile</li></a>
+        <a class="link" href="profile"><li class="navbar-item"><i class="fas fa-user"></i> Profile</li></a>
         <li class="navbar-item"><a href="profile.html"></a><i class="fas fa-newspaper"></i> News</li>
         <li class="navbar-item"><a href="profile.html"></a><i class="fas fa-bell"></i> Notifications</li>
     </ul>
     <div class="search-icon"><i class="fas fa-search"></i> Search</div>
-    <div class="settings-icon"><i class="fas fa-cog"></i></div>
+    <div class="settings-dropdown" id="settingsDropdown">
+        <div class="settings-icon"><i class="fas fa-cog"></i> Settings   </div>
+        <div class="dropdown-content">
+            <a href="settings">Settings</a>
+            <a href="logout">Log Out</a>
+        </div>
+    </div>
 </nav>
 
 <div class="content-container">
