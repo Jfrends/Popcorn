@@ -69,8 +69,22 @@ def logout(request):
 
 @login_required(login_url='login')
 def settings(request):
-    return render(request, 'settings.html')
+    user_profile = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        if request.FILES.get('profilePicture') == None:
+            image = user_profile.profileimg
+            bio = request.POST['bio']
+        if request.FILES.get('profilePicture') != None:
+            image = request.FILES.get('profilePicture')
+            bio = request.POST['bio']
+        user_profile.profileimg = image
+        user_profile.bio = bio
+        user_profile.save()
+        
+        return redirect('settings')
+    return render(request, 'settings.html', {'user_profile': user_profile})
 
 @login_required(login_url='login')
 def profile(request):
-    return render(request, 'profile.html')
+    user_profile = Profile.objects.get(user=request.user)
+    return render(request, 'profile.html', {'user_profile': user_profile})

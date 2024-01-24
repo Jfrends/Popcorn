@@ -109,8 +109,8 @@
             height: 150px;
             border-radius: 50%;
             background-color: #ccc; /* Light gray background for the profile picture */
-            margin-bottom: 20px;    
-            margin-left: 15px;
+            margin-bottom: 40px;    
+            margin-right: 20px;
         }
 
         .username {
@@ -218,9 +218,10 @@
 
 <div class="content-container">
     <div class="profile-column">
-        <div class="profile-header">Username</div>
-        <div class="profile-picture"></div>
-        <div class="username">Films Watched: </div>
+        <div class="profile-header">{{user.username}}</div>
+        <div class="profile-picture"><img height="170px" width="170px" src="{{user_profile.profileimg.url}}"></div>
+        <div class="username">Films Watched: {{user_profile.numFilmsWatched}}</div>
+        <p>{{user_profile.bio}}</p>
     </div>
 
     <div class="favorite-movies-column">
