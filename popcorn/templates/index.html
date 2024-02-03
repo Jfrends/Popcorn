@@ -56,14 +56,22 @@
             margin-left: auto;
         }
 
+        .check-text {
+            position: absolute;
+            top: 8px;
+            right: 25px; /* Adjust the position as needed */
+            font-size: 14px;
+            color: #000;
+        }
+
         .navbar-item {
             color: #fff;
             font-size: 18px;
-            text-transform: uppercase;
             padding: 10px;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            vertical-align: bottom;
         }
 
         .navbar-item:hover {
@@ -77,9 +85,11 @@
         .search-icon,
         .settings-icon {
             color: #fff;
-            font-size: 20px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-left: 20px;
+            transition: background-color 0.3s ease;
         }
 
         .search-icon:hover,
@@ -136,8 +146,6 @@
         }
 
         .post-image {
-            width: 100%;
-            max-width: 350px;
             height: auto;
             margin-bottom: 10px;
             border-radius: 12px 12px 0 0; /* Rounded corners only at the top */
@@ -171,12 +179,23 @@
 
         .plus-icon {
             position: absolute;
-            top: 520px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             font-size: 30px;
             color: #000;
             cursor: pointer;
             transition: color 0.3s ease;
+        }
+
+        .check-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            transition: color 0.3s ease;
+            content: '\2713';
+            font-size: 22px;
+            color: #000;
+            display: block;
         }
 
         .plus-icon::before {
@@ -191,16 +210,7 @@
             pointer-events: none;
         }
 
-        .check-text{
-          position: absolute;
-          top: 532px;
-          right: 32px;
-          font-size: 14px;
-          color: #000;
-          display: none;
-        }
-
-        .plus-icon.clicked + .check-text {
+        .plus-icon.clicked{
         display: block;
         }
 
@@ -270,6 +280,86 @@
             display: block;
         }
 
+        .expand-button, 
+        .hide-button {
+        background-color: #333; /* Dark gray background color */
+        color: #fff; /* White text color */
+        padding: 8px 16px; /* Adjust padding as needed */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .expand-button:hover,
+    .hide-button:hover {
+        background-color: #555; /* Slightly darker gray on hover */
+    }
+    .search-container {
+    position: relative;
+    z-index: 1; /* Ensure the search bar is above other elements */
+}
+
+.search-icon:hover + .search-bar,
+.search-bar:hover {
+    display: block;
+}
+
+/* ... Your existing styles ... */
+
+.search-bar {
+    display: none; /* Hide the search bar by default */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* ... Your existing styles ... */
+
+
+
+.search-bar.show-search-bar {
+    display: block;
+}
+
+.search-bar input {
+    width: calc(100% - 40px); /* Adjusted to accommodate the button */
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.search-button {
+    display: inline-block; /* Display the button inline */
+    vertical-align: top; /* Align the button with the top of the input */
+    margin-left: -40px; /* Negative margin to overlap with the input */
+    background-color: #000; /* Black background */
+    color: #fff; /* White text color */
+    padding: 10px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 0 4px 4px 0; /* Adjust border-radius for a rounded look */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #333; /* Slightly darker gray on hover */
+}
+
+.pfp{
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    vertical-align: baseline;
+}
+
+
     </style>
 </head>
 <body>
@@ -280,18 +370,22 @@
         </a>
     </div>
     <ul class="navbar-links">
-        <a class="link" href="profile"><li class="navbar-item"><i class="fas fa-user"></i> Profile</li></a>
-        <li class="navbar-item"><a href="profile.html"></a><i class="fas fa-newspaper"></i> News</li>
-        <li class="navbar-item"><a href="profile.html"></a><i class="fas fa-bell"></i> Notifications</li>
+        <form action="/search" method="POST">
+            {% csrf_token %}
+            <div class="search-container">
+                <div class="search-icon" onclick=toggleSearch()><i class="fas fa-search"></i> Search</div>
+                <div class="search-bar" id="searchBar">
+                    <input type="text" name="search" placeholder="Search...">
+                    <!-- You can include a submit button or handle search via JavaScript -->
+                    <button class="search-button" type="submit"><i class="fas fa-search fa-1x"></i></button>
+                </div>
+            </div>
+        </form>
+        <a class="link" href="my_list"><li class="navbar-item"><i class="fas fa-heart"></i> My Watchlist</li></a>
+        <a class="link" href=""><li class="navbar-item"><i class="fas fa-bell"></i></li></a>
+        <a class="link" href="settings"><li class="navbar-item"><i class="fas fa-cog"></i></li></a>
+        <a class="link" href="my_profile"><li class="navbar-item"><img class="pfp" src="{{user_profile.profileimg.url}}"></li></a>
     </ul>
-    <div class="search-icon"><i class="fas fa-search"></i> Search</div>
-    <div class="settings-dropdown" id="settingsDropdown">
-        <div class="settings-icon"><i class="fas fa-cog"></i> Settings   </div>
-        <div class="dropdown-content">
-            <a href="settings">Settings</a>
-            <a href="logout">Log Out</a>
-        </div>
-    </div>
 </nav>
 
 <div class="content-container">
@@ -304,18 +398,36 @@
 
     <div class="content-column">
         <div class="post-container">
-            <img class="post-image" src="{% static 'images/movieposter.jpg' %}" alt="Post Image"/>
-            <div class="genres">Action, Drama</div>
-            <div class="left-arrow">&lt;</div>
-            <div class="right-arrow">&gt;</div>
-            <div class="plus-icon" title="Add to my list"></div>
-            <div class="check-text"> Added to my list</div>
+            <img class="post-image" src="{{movie_on.poster}}" alt="{{movie_on.title}} Poster Image"/>
+            <div class="genres">{{movie_on.genres}}</div>
+            <form action="prev_movie">
+                {% csrf_token %}
+                <button class = "left-arrow" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;"><div class="left-arrow">&lt;</div></button>
+            </form>
+            <form action="next_movie">
+                {% csrf_token %}
+                <button class="right-arrow" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;"><div class="right-arrow">&gt;</div></button>
+            </form>
         </div>
         <div class="text-container">
             <div class="text-column">
-                <p>Your text content goes here.</p>
-                <p>Ratings: 4.5/5</p>
-                <p><a href="#">Watch Trailer</a></p>
+                {% if not in_list %}
+                    <form action="add_movie">
+                        {% csrf_token %}
+                        <button class = "plus-icon", style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;"><div class="plus-icon" title="Add to my list"></div></button>
+                    </form>
+                {% endif %}
+                {% if in_list %}
+                    <p class="check-text">Added to watchlist</p>
+                {% endif %}
+                <p><b>{{movie_on.title}}</b></p>
+                <div class="description">
+                    <p class="short-description">{{ movie_on.description|truncatechars:150 }}</p>
+                    <p class="full-description" style="display:none;">{{ movie_on.description }}</p>
+                    <button class="expand-button">Expand</button>
+                    <button class="hide-button" style="display:none;">Hide</button>
+                </div>
+                <p>IMDB Score: {{movie_on.ratings}}</p>
             </div>
         </div>
     </div>
@@ -340,9 +452,68 @@
         plusIcon.addEventListener('click', function () {
             if (!plusIcon.classList.contains('clicked')) {
                 plusIcon.classList.add('clicked');
+                checkText.style.display = 'block'; // Show the check text
             }
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const expandButton = document.querySelector('.expand-button');
+        const shortDescription = document.querySelector('.short-description');
+        const fullDescription = document.querySelector('.full-description');
+        const hideButton = document.querySelector('.hide-button');
+
+        expandButton.addEventListener('click', function () {
+            shortDescription.style.display = 'none';
+            fullDescription.style.display = 'block';
+            expandButton.style.display = 'none';
+            hideButton.style.display = 'inline-block';
+        });
+
+        hideButton.addEventListener('click', function () {
+            shortDescription.style.display = 'block';
+            fullDescription.style.display = 'none';
+            expandButton.style.display = 'inline-block';
+            hideButton.style.display = 'none';
+        });
+    });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchIcon = document.querySelector('.search-icon');
+    const searchBar = document.querySelector('.search-bar');
+
+    searchIcon.addEventListener('mouseenter', function () {
+        searchBar.style.display = 'block';
+    });
+
+    searchBar.addEventListener('mouseleave', function () {
+        searchBar.style.display = 'none';
+    });
+});
+
+function toggleSearch() {
+    var searchBar = document.getElementById("searchBar");
+    searchBar.style.display = (searchBar.style.display === "block") ? "none" : "block";
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const searchIcon = document.querySelector('.search-icon');
+    const searchBar = document.querySelector('.search-bar');
+
+    searchIcon.addEventListener('mouseenter', function () {
+        searchBar.style.display = 'block';
+    });
+
+    searchBar.addEventListener('mouseleave', function () {
+        searchBar.style.display = 'none';
+    });
+});
+
+function toggleSearch() {
+    var searchBar = document.getElementById("searchBar");
+    searchBar.style.display = (searchBar.style.display === "block") ? "none" : "block";
+}
+
 </script>
+
 </body>
 </html>

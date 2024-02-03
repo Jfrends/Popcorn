@@ -49,10 +49,16 @@
             margin-left: auto;
         }
 
+        .link
+        {
+          color:aqua;
+          text-decoration: none; 
+          background-color: none;
+        }
+
         .navbar-item {
             color: #fff;
             font-size: 18px;
-            text-transform: uppercase;
             padding: 10px;
             border-radius: 8px;
             cursor: pointer;
@@ -66,14 +72,21 @@
         .navbar-links i {
             margin-right: 5px;
         }
-
         .search-icon,
         .settings-icon {
             color: #fff;
-            font-size: 20px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-left: 20px;
+            transition: background-color 0.3s ease;
         }
+        
+        .search-icon:hover,
+        .settings-icon:hover {
+            color: #ddd; /* Light gray on hover */
+        }
+
 
         .search-icon:hover,
         .settings-icon:hover {
@@ -192,6 +205,95 @@
             display: block;
         }
 
+    .search-container {
+    position: relative;
+    z-index: 1; /* Ensure the search bar is above other elements */
+}
+
+.search-icon:hover + .search-bar,
+.search-bar:hover {
+    display: block;
+}
+
+/* ... Your existing styles ... */
+
+.search-bar {
+    display: none; /* Hide the search bar by default */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* ... Your existing styles ... */
+
+
+.search-bar input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.search-bar.show-search-bar {
+    display: block;
+}
+
+.search-container {
+    position: relative;
+    z-index: 1; /* Ensure the search bar is above other elements */
+}
+
+.search-icon:hover + .search-bar,
+.search-bar:hover {
+    display: block;
+    height: auto; /* Adjusted to allow the search bar to expand */
+}
+
+.search-bar {
+    display: none; /* Hide the search bar by default */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    transition: height 0.3s ease; /* Added transition for smooth height change */
+}
+
+.search-bar input {
+    width: calc(100% - 40px);
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.search-button {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -40px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #333;
+}
+
+
     </style>
 </head>
 <body>
@@ -200,19 +302,6 @@
         <a href="/" class="logo">
             <img src="{% static 'images/popcorn.png' %}" alt="Logo" class="logo-image"/>
         </a>
-    </div>
-    <ul class="navbar-links">
-        <li href="profile.html" class="navbar-item"><i class="fas fa-user"></i> Profile</li>
-        <li class="navbar-item"><i class="fas fa-newspaper"></i> News</li>
-        <li class="navbar-item"><i class="fas fa-bell"></i> Notifications</li>
-    </ul>
-    <div class="search-icon"><i class="fas fa-search"></i> Search</div>
-    <div class="settings-dropdown" id="settingsDropdown">
-        <div class="settings-icon"><i class="fas fa-cog"></i> Settings   </div>
-        <div class="dropdown-content">
-            <a href="settings">Settings</a>
-            <a href="logout">Log Out</a>
-        </div>
     </div>
 </nav>
 
@@ -235,16 +324,25 @@
     </div>
 </div>
 
-<footer>
-    <ul class="footer-links">
-        <li class="footer-item">Footer Link 1</li>
-        <li class="footer-item">Footer Link 2</li>
-        <li class="footer-item">Footer Link 3</li>
-    </ul>
-</footer>
-
 <script>
-    // Your JavaScript code can go here if needed
+document.addEventListener('DOMContentLoaded', function () {
+    const searchIcon = document.querySelector('.search-icon');
+    const searchBar = document.querySelector('.search-bar');
+
+    searchIcon.addEventListener('mouseenter', function () {
+        searchBar.style.display = 'block';
+    });
+
+    searchBar.addEventListener('mouseleave', function () {
+        searchBar.style.display = 'none';
+    });
+});
+
+function toggleSearch() {
+    var searchBar = document.getElementById("searchBar");
+    searchBar.style.display = (searchBar.style.display === "block") ? "none" : "block";
+}
+
 </script>
 </body>
 </html>
